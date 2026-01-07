@@ -1,0 +1,4 @@
+module CDarwinKernelShim {
+    header "shim.h"
+    export *
+}
