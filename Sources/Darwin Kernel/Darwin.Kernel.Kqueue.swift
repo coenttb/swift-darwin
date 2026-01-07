@@ -14,7 +14,6 @@ public import Kernel_Primitives
     public import Darwin
 
     /// Type alias for C kevent struct to avoid ambiguity with Swift kevent method.
-    @usableFromInline
     internal typealias CKevent = kevent
 
     extension Kernel {
@@ -32,7 +31,6 @@ public import Kernel_Primitives
 
     // Import kevent function explicitly (avoiding conflict with kevent struct)
     @_silgen_name("kevent")
-    @usableFromInline
     internal func _kevent(
         _ kq: Int32,
         _ changelist: UnsafePointer<kevent>?,
@@ -47,8 +45,7 @@ public import Kernel_Primitives
         ///
         /// - Returns: A file descriptor for the new kqueue.
         /// - Throws: `Error.create` if kqueue creation fails.
-        @inlinable
-        public static func create() throws(Error) -> Kernel.Descriptor {
+        public static func create() throws(Kernel.Kqueue.Error) -> Kernel.Descriptor {
             let kq = kqueue()
             guard kq >= 0 else {
                 throw .create(.captureErrno())
@@ -72,7 +69,6 @@ public import Kernel_Primitives
         ///   - timeout: Timeout for waiting, or `nil` for infinite.
         /// - Returns: Number of events placed in eventlist.
         /// - Throws: `Error.kevent` on failure, `Error.interrupted` on EINTR.
-        @inlinable
         public static func kevent(
             _ kq: Kernel.Descriptor,
             changelist: UnsafePointer<kevent>?,
@@ -103,13 +99,12 @@ public import Kernel_Primitives
         ///   - timeout: Timeout for waiting, or `nil` for infinite.
         /// - Returns: Number of events placed in eventlist.
         /// - Throws: `Error.kevent` on failure, `Error.interrupted` on EINTR.
-        @inlinable
         public static func kevent(
             _ kq: Kernel.Descriptor,
             changelist: UnsafeBufferPointer<kevent>,
             eventlist: UnsafeMutableBufferPointer<kevent>,
             timeout: UnsafePointer<timespec>?
-        ) throws(Error) -> Int {
+        ) throws(Kernel.Kqueue.Error) -> Int {
             try kevent(
                 kq,
                 changelist: changelist.baseAddress,
@@ -128,11 +123,10 @@ public import Kernel_Primitives
         ///   - kq: The kqueue descriptor.
         ///   - changelist: Events to register/modify.
         /// - Throws: `Error.kevent` on failure.
-        @inlinable
         public static func register(
             _ kq: Kernel.Descriptor,
             changelist: UnsafeBufferPointer<kevent>
-        ) throws(Error) {
+        ) throws(Kernel.Kqueue.Error) {
             _ = try kevent(
                 kq,
                 changelist: changelist.baseAddress,
@@ -153,12 +147,11 @@ public import Kernel_Primitives
         ///   - timeout: Timeout for waiting, or `nil` for infinite.
         /// - Returns: Number of events placed in eventlist.
         /// - Throws: `Error.kevent` on failure, `Error.interrupted` on EINTR.
-        @inlinable
         public static func poll(
             _ kq: Kernel.Descriptor,
             eventlist: UnsafeMutableBufferPointer<kevent>,
             timeout: UnsafePointer<timespec>?
-        ) throws(Error) -> Int {
+        ) throws(Kernel.Kqueue.Error) -> Int {
             try kevent(
                 kq,
                 changelist: nil,
@@ -187,7 +180,7 @@ public import Kernel_Primitives
             _ kq: Kernel.Descriptor,
             eventlist: UnsafeMutableBufferPointer<kevent>,
             timeout: Duration?
-        ) throws(Error) -> Int {
+        ) throws(Kernel.Kqueue.Error) -> Int {
             if var ts = Kernel.Time.timespec(from: timeout) {
                 return try poll(kq, eventlist: eventlist, timeout: &ts)
             } else {
@@ -208,7 +201,6 @@ public import Kernel_Primitives
         ///   - kq: The kqueue descriptor.
         ///   - events: Array of events to register/modify.
         /// - Throws: `Error.kevent` on failure.
-        @inlinable
         public static func register(
             _ kq: Kernel.Descriptor,
             events: [Event]
@@ -253,12 +245,11 @@ public import Kernel_Primitives
         ///   - timeout: Timeout duration, or `nil` for infinite.
         /// - Returns: Number of events written to buffer.
         /// - Throws: `Error.kevent` on failure, `Error.interrupted` on EINTR.
-        @inlinable
         public static func poll(
             _ kq: Kernel.Descriptor,
             into events: inout [Event],
             timeout: Duration?
-        ) throws(Error) -> Int {
+        ) throws(Kernel.Kqueue.Error) -> Int {
             guard !events.isEmpty else { return 0 }
 
             let count = events.count

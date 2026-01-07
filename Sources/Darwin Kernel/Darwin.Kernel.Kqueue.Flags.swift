@@ -46,7 +46,6 @@ public import Kernel_Primitives
         public struct Flags: Sendable, Equatable, Hashable {
             public let rawValue: UInt16
 
-            @inlinable
             public init(rawValue: UInt16) {
                 self.rawValue = rawValue
             }
@@ -139,13 +138,11 @@ public import Kernel_Primitives
 
     extension Kernel.Kqueue.Flags {
         /// Combines multiple flags.
-        @inlinable
         public static func | (lhs: Self, rhs: Self) -> Self {
             Self(rawValue: lhs.rawValue | rhs.rawValue)
         }
 
         /// Checks if this contains another flag.
-        @inlinable
         public func contains(_ other: Self) -> Bool {
             (rawValue & other.rawValue) == other.rawValue
         }

@@ -80,7 +80,6 @@ public import Kernel_Primitives
             ///   - fflags: Filter-specific flags.
             ///   - filterData: Filter-specific data.
             ///   - data: User-defined routing data.
-            @inlinable
             public init(
                 id: Kernel.Event.ID,
                 filter: Filter,
@@ -103,7 +102,6 @@ public import Kernel_Primitives
 
     extension Kernel.Kqueue.Event {
         /// Creates an Event from the Darwin kevent struct.
-        @usableFromInline
         internal init(_ cEvent: kevent) {
             self.id = Kernel.Event.ID(cEvent.ident)
             self.filter = Kernel.Kqueue.Filter(rawValue: cEvent.filter)
@@ -114,7 +112,6 @@ public import Kernel_Primitives
         }
 
         /// Converts to the Darwin kevent struct.
-        @usableFromInline
         internal var cValue: kevent {
             var ev = kevent()
             ev.ident = id.rawValue

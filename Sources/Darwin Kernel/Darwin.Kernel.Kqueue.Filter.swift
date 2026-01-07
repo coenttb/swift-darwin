@@ -42,7 +42,6 @@ public import Kernel_Primitives
         public struct Filter: RawRepresentable, Sendable, Equatable, Hashable {
             public let rawValue: Int16
 
-            @inlinable
             public init(rawValue: Int16) {
                 self.rawValue = rawValue
             }

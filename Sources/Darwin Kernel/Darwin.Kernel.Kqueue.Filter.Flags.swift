@@ -38,7 +38,6 @@ public import Kernel_Primitives
         public struct Flags: Sendable, Equatable, Hashable {
             public let rawValue: UInt32
 
-            @inlinable
             public init(rawValue: UInt32) {
                 self.rawValue = rawValue
             }
@@ -58,13 +57,11 @@ public import Kernel_Primitives
         public static let none = Self(rawValue: 0)
 
         /// Combines multiple filter flags.
-        @inlinable
         public static func | (lhs: Self, rhs: Self) -> Self {
             Self(rawValue: lhs.rawValue | rhs.rawValue)
         }
 
         /// Checks if this contains another filter flag.
-        @inlinable
         public func contains(_ other: Self) -> Bool {
             (rawValue & other.rawValue) == other.rawValue
         }

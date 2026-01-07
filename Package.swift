@@ -47,7 +47,7 @@ let package = Package(
             name: "Darwin Kernel Tests",
             dependencies: [
                 "Darwin Kernel",
-                .product(name: "Kernel Test Support", package: "swift-kernel-primitives"),
+                .product(name: "Kernel Primitives Test Support", package: "swift-kernel-primitives"),
                 .product(name: "StandardsTestSupport", package: "swift-standards")
             ],
             path: "Tests/Darwin Kernel Tests"

@@ -39,7 +39,6 @@ public import Kernel_Primitives
         /// This is the canonical conversion from kqueue's `udata` field.
         ///
         /// - Parameter pointer: The pointer from kevent's udata field.
-        @inlinable
         public init(_ pointer: UnsafeMutableRawPointer?) {
             self.init(UInt64(UInt(bitPattern: pointer)))
         }
@@ -50,7 +49,6 @@ public import Kernel_Primitives
         /// with an event.
         ///
         /// - Parameter pointer: A pointer to associate with the event.
-        @inlinable
         public init(_ pointer: UnsafeRawPointer) {
             self.init(UInt64(UInt(bitPattern: pointer)))
         }
@@ -58,7 +56,6 @@ public import Kernel_Primitives
         /// Creates event data from a typed pointer.
         ///
         /// - Parameter pointer: A pointer to associate with the event.
-        @inlinable
         public init<T>(pointer: UnsafePointer<T>) {
             self.init(UInt64(UInt(bitPattern: pointer)))
         }
@@ -66,7 +63,6 @@ public import Kernel_Primitives
         /// Creates event data from a mutable typed pointer.
         ///
         /// - Parameter pointer: A mutable pointer to associate with the event.
-        @inlinable
         public init<T>(pointer: UnsafeMutablePointer<T>) {
             self.init(UInt64(UInt(bitPattern: pointer)))
         }
@@ -80,7 +76,6 @@ public import Kernel_Primitives
         /// Returns `nil` if the data value is zero.
         ///
         /// - Parameter data: The event data to convert.
-        @inlinable
         public init?(_ data: Kernel.Kqueue.Event.Data) {
             self.init(bitPattern: UInt(data.rawValue))
         }
