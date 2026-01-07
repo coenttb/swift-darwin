@@ -17,7 +17,7 @@
     import Kernel_Primitives
 @testable import Darwin_Kernel
     import Kernel_Primitives
-    import Kernel_Test_Support
+    import Kernel_Primitives_Test_Support
 
     extension Kernel.Kqueue {
         #TestSuites
