@@ -24,6 +24,29 @@ public import Kernel_Primitives
         ///
         /// Higher layers (swift-io) build registration management,
         /// ID tracking, and event dispatch on top of these primitives.
+        ///
+        /// ## Threading
+        ///
+        /// All syscall wrappers are thread-safe at the kernel level. The kqueue
+        /// descriptor can be shared across threads, but concurrent registration
+        /// and polling should be coordinated by the caller.
+        ///
+        /// ## Blocking
+        ///
+        /// `poll()` and `kevent()` block the calling thread until events arrive
+        /// or the timeout expires. Use from a dedicated thread or blocking executor,
+        /// not from Swift's cooperative thread pool.
+        ///
+        /// ## Cancellation
+        ///
+        /// No native cancellation support. For async contexts, use short timeouts
+        /// and check `Task.isCancelled` between polls.
+        ///
+        /// ## Lifecycle
+        ///
+        /// The kqueue descriptor must be closed via `Kernel.Close.close(_:)` when
+        /// no longer needed. Leaking descriptors exhausts process file descriptor
+        /// limits. Use `defer` for cleanup.
         public enum Kqueue {}
     }
 

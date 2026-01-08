@@ -11,8 +11,13 @@
 
 /// Darwin platform namespace.
 ///
-/// Contains Darwin-specific kernel mechanisms including:
-/// - kqueue event notification
-/// - Mach ports (future)
-/// - XPC (future)
+/// Contains Darwin-specific kernel mechanisms:
+/// - kqueue event notification (implemented)
+/// - Mach ports (planned)
+/// - XPC (planned)
+///
+/// ## Platform
+///
+/// Darwin APIs are available on macOS, iOS, tvOS, and watchOS.
+/// This namespace isolates Darwin-specific code from cross-platform layers.
 public enum Darwin: Sendable {}
