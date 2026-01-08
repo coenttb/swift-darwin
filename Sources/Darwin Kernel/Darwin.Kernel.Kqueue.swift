@@ -259,7 +259,7 @@ public import Kernel_Primitives
             withUnsafeTemporaryAllocation(
                 of: CKevent.self,
                 capacity: count
-            ) { (buffer: UnsafeMutableBufferPointer<CKevent>) -> Void in
+            ) { (buffer: UnsafeMutableBufferPointer<CKevent>) in
                 do {
                     if var ts = Kernel.Time.timespec(from: timeout) {
                         eventCount = try kevent(
