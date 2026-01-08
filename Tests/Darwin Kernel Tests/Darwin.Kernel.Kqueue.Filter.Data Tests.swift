@@ -15,8 +15,7 @@
     import Testing
 
     import Kernel_Primitives
-@testable import Darwin_Kernel
-    import Kernel_Primitives
+    @testable import Darwin_Kernel
 
     // Kernel.Kqueue.Filter.Data is a typealias to Tagged<Kernel.Kqueue.Filter, Int>
     // Use a custom test suite since #TestSuites cannot be used on typealiases

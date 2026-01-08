@@ -15,8 +15,7 @@
     import Testing
 
     import Kernel_Primitives
-@testable import Darwin_Kernel
-    import Kernel_Primitives
+    @testable import Darwin_Kernel
 
     extension Kernel.Kqueue.Error {
         #TestSuites
