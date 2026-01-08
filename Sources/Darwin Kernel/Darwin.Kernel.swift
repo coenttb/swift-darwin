@@ -9,8 +9,8 @@
 //
 // ===----------------------------------------------------------------------===//
 
-public import Kernel_Primitives
 public import Darwin_Primitives
+public import Kernel_Primitives
 
 extension Darwin_Primitives.Darwin {
     /// Darwin kernel mechanisms.

@@ -11,7 +11,7 @@
 public import Kernel_Primitives
 
 #if canImport(Darwin)
-    public import Darwin
+    import Darwin
 
     extension Kernel.Kqueue {
         /// A kqueue event describing an event source and its state.

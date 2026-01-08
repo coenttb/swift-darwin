@@ -9,9 +9,9 @@
 //
 // ===----------------------------------------------------------------------===//
 
-public import Kernel_Primitives
 public import Darwin_Primitives
-public import POSIX_Kernel
+public import Kernel_Primitives
+import POSIX_Kernel
 
 /// Re-export Kernel namespace from primitives for use within Darwin module.
 public typealias Kernel = Kernel_Primitives.Kernel
